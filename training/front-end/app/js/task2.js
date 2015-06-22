@@ -1,28 +1,42 @@
 /**
  * Created by maida sanchez on 18/06/2015.
  */
-
 var Calculator = function (){
-    this.memory = 0;
-}
-
-Calculator.prototype.Add = function (a , b) {
-    var result = sum(arguments);
-    this.memory = this.memory + result;
-    return this.memory;
-}
-
-Calculator.prototype.Subs = function (a , b) {
-    var result;
-    if (typeof b === 'undefined') {
-        result = this.memory - a;
-        this.memory = result;
-
-    } else {
-        result = a - b;
-        this.memory = this.memory + result;
+    var memory = 0;
+    this.getMemory = function() {
+        return memory;
     }
-    return this.memory;
+    this.setMemory = function(newvalue) {
+        memory = newvalue;
+        return memory;
+    }
+}
+
+Calculator.prototype.Add = function (ope1 , ope2) {
+    if (!ope2)
+        return this.setMemory(this.getMemory() + ope1);
+    this.setMemory(ope1 + ope2)
+    return this.getMemory();
+}
+
+Calculator.prototype.Subs = function (ope1 , ope2) {
+    if (!ope2)
+        return this.setMemory(this.getMemory() - ope1);
+    this.setMemory(ope1 - ope2)
+    return this.getMemory();
+}
+
+Calculator.prototype.Multiply = function (ope1 , ope2) {
+    if (!ope2)
+        return this.setMemory(this.getMemory() * ope1);
+    this.setMemory(ope1 * ope2)
+    return this.getMemory();
+}
+Calculator.prototype.Divide = function (ope1 , ope2) {
+    if (!ope2)
+        return this.setMemory(this.getMemory()/ope1);
+    this.setMemory(ope1/ope2)
+    return this.getMemory();
 }
 
 Calculator.prototype.Sum = sum;
@@ -84,3 +98,7 @@ var calculateAll = function () {
     console.log('MIN:', min(arguments));
     console.log('AVERAGE:', average(arguments));
 };
+
+var calc = new Calculator();
+console.log("Suma 1 + 2 = ", calc.Add(1,2));
+console.log("Suma + 3 = ", calc.Add(3));
