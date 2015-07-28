@@ -11,6 +11,13 @@ frisby.globalSetup({
         }
     }
 });
+
+frisby.create('Verify GET ALL backlogs of type templates=name')
+    .get('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/all?templates=Name')
+    .expectStatus(200)
+    .inspectJSON()
+    .toss();
+
 frisby.create('Verify GET ALL backlogs of type templates=name')
     .get('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/all?templates=Name')
     .expectStatus(200)
@@ -79,16 +86,7 @@ frisby.create('Verify GET ALL backlogs of type templates=name')
     .inspectJSON()
     .toss();
 
-frisby.create('Verify GET ALL backlogs of type templates=name')
-    .get('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/all?templates=Name')
-    .expectStatus(200)
-
-    .expectJSONLength(7)
-    .inspectJSON()
-    .toss();
-
-
-frisby.create('Verify GET a simple Project')
+frisby.create('Verify GET an specific Backlog')
     .get('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/143744?templates=Name')
     .expectStatus(200)
     .expectJSON([
@@ -106,13 +104,13 @@ frisby.create('Verify GET a simple Project')
     "name": "Example product2"
  };
 
-frisby.create('Verify POST a simple Project')
+frisby.create('Verify create a Product')
     .post('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs', productPOST,{json:true})
     .expectHeaderContains('Content-Type', 'json')
     .expectStatus(201)
     .afterJSON(function(result){
         console.log(result);
-        frisby.create('verify GET PROJECT ')
+        frisby.create('Verify Get a product')
             .get('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/'+result[0].id +'?templates=Name')
             .expectStatus(200)
             .expectJSON([
@@ -127,8 +125,6 @@ frisby.create('Verify POST a simple Project')
     .inspectJSON()
     .toss();
 
-
-
  // note the post operation with id do not return any value inside after json
 
 var modifyProject = {"type": "product", "name": "anotherTESTFINAL"};
@@ -142,4 +138,4 @@ frisby.create('Verify DELETE Project of type templates=name')
     .delete('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/145663')
     .expectHeaderContains("Cache-Control",'no-cache="set-cookie"')
     .expectStatus(200)
-.toss();
+    .toss();
