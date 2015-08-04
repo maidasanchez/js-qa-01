@@ -30,7 +30,7 @@ describe ('Agilefant', function(){
                 done();
             });
     });
-    it ('should create a new backlog', function (done){
+    xit ('should create a new backlog', function (done){
         request
             .post('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs')
             .set('Authorization', authorization)
@@ -41,10 +41,36 @@ describe ('Agilefant', function(){
                 if (error) throw error;
                 //console.log(response.body.type);
                 //console.log(response.error);
-                console.log(response.text.);
                 //console.log(response.ok);
                 expect(response.ok).toBe(true);
                 expect(response.status).toBe(201);
+                done();
+            });
+    });
+    xit ('should modify a product', function (done){
+        request
+            .post('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/143744')
+            .set ('Authorization', authorization)
+            .send({
+                "type": "product",
+                "name": "Example Product updated"})
+            .end(function(error, response){
+                console.log('response', response);
+                console.log(response.status);
+                expect(response.status).toBe(200);
+                expect(response.ok).toBe(true);
+                done();
+            });
+    });
+    it ('should delete a product', function (done){
+        request
+            .del('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/146229')
+            .set ('Authorization', authorization)
+            .end(function(error, response){
+                console.log('response', response);
+                console.log(response.status);
+                expect(response.ok).toBe(true);
+                expect(response.status).toBe(200);
                 done();
             });
     });
