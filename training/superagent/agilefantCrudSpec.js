@@ -7,7 +7,7 @@ var request = require('superagent');
 var authorization = 'Basic bWFpZGEuc2FuY2hlekBnbWFpbC5jb206Q29udHJvbDEyMw==';
 
 describe ('Agilefant', function(){
-    xit ('should return projects with authentication', function (done){
+    it ('should return projects with authentication', function (done){
         request
             .get('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/145428?templates=Name')
             .set ('Authorization', authorization)
@@ -18,7 +18,7 @@ describe ('Agilefant', function(){
                 done();
             });
     });
-    xit ('should get an specific backlog', function (done){
+    it ('should get an specific backlog', function (done){
         request
             .get('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/143744?templates=Name')
             .set ('Authorization', authorization)
@@ -30,7 +30,7 @@ describe ('Agilefant', function(){
                 done();
             });
     });
-    xit ('should create a new backlog', function (done){
+    it ('should create a new backlog', function (done){
         request
             .post('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs')
             .set('Authorization', authorization)
@@ -47,7 +47,7 @@ describe ('Agilefant', function(){
                 done();
             });
     });
-    xit ('should modify a product', function (done){
+    it ('should modify a product', function (done){
         request
             .post('https://cloud.agilefant.com:443/maidasanchez/api/v1/backlogs/143744')
             .set ('Authorization', authorization)
